@@ -1,0 +1,39 @@
+/* TENKEI brand — PDSNO docs custom styles */
+
+:root {
+  --tenkei-orange: #FF6B35;
+  --tenkei-charcoal: #2B2D2F;
+  --tenkei-slate: #6C757D;
+  --tenkei-light: #E8EAED;
+}
+
+/* Override Material primary with exact TENKEI orange */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #FF6B35;
+  --md-primary-fg-color--light: #FF8C5A;
+  --md-primary-fg-color--dark: #E55A25;
+  --md-accent-fg-color: #FF6B35;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #FF6B35;
+  --md-primary-fg-color--light: #FF8C5A;
+  --md-primary-fg-color--dark: #E55A25;
+  --md-accent-fg-color: #FF8C5A;
+}
+
+/* Tighten the home page grid cards */
+.md-typeset .grid.cards > ul {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Subtle left border on admonitions to reinforce brand */
+.md-typeset .admonition {
+  border-left-color: var(--tenkei-orange);
+}
+
+/* Make the status table on home page more compact */
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color);
+  color: white;
+}

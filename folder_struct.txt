@@ -1,0 +1,33 @@
+docs/
+|-- index.md
+|-- getting-started/
+|   |-- what-is-pdsno.md
+|   |-- how-it-works.md
+|   |-- quick-start.md
+|   `-- system-goals.md
+|-- concepts/
+|   |-- controller-hierarchy.md
+|   |-- controller-validation.md
+|   |-- network-information-base.md
+|   |-- device-discovery.md
+|   |-- config-approval.md
+|   |-- policy-propagation.md
+|   |-- communication-model.md
+|   `-- security-model.md
+|-- security/
+|   `-- threat-model.md
+|-- reference/
+|   |-- api-reference.md
+|   |-- data-models.md
+|   |-- scan-policy.md
+|   |-- deployment-guide.md
+|   `-- repository-structure.md
+|-- design-decisions/
+|   `-- index.md
+|-- contributing/
+|   |-- how-to-contribute.md
+|   `-- testing-framework.md
+|-- diagrams/
+`-- vendor-analysis/
+    |-- overview.md
+    `-- gap-analysis.md
