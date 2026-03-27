@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">TENKEI Network Flower Logo</title>
+  <desc id="desc">Five silver petals connected to a warm orange network core on transparent background.</desc>
+
+  <defs>
+    <linearGradient id="petalGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d7dbe0"/>
+      <stop offset="100%" stop-color="#9ea5af"/>
+    </linearGradient>
+    <linearGradient id="coreGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f2a65a"/>
+      <stop offset="100%" stop-color="#e67e22"/>
+    </linearGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <g id="petal">
+      <path d="M256 84 C 288 118, 288 176, 256 212 C 224 176, 224 118, 256 84 Z"
+            fill="url(#petalGrad)" fill-opacity="0.9" stroke="#eceff3" stroke-width="3"/>
+      <line x1="256" y1="118" x2="256" y2="194" stroke="#f1f4f8" stroke-width="3"/>
+      <circle cx="256" cy="136" r="9" fill="#f6f8fb"/>
+      <circle cx="256" cy="168" r="7" fill="#f6f8fb"/>
+    </g>
+  </defs>
+
+  <g transform="translate(0 -8)">
+    <use href="#petal"/>
+    <use href="#petal" transform="rotate(72 256 256)"/>
+    <use href="#petal" transform="rotate(144 256 256)"/>
+    <use href="#petal" transform="rotate(216 256 256)"/>
+    <use href="#petal" transform="rotate(288 256 256)"/>
+
+    <g stroke="#f6f8fb" stroke-width="3" stroke-linecap="round">
+      <line x1="256" y1="256" x2="256" y2="190"/>
+      <line x1="256" y1="256" x2="321" y2="236"/>
+      <line x1="256" y1="256" x2="297" y2="315"/>
+      <line x1="256" y1="256" x2="215" y2="315"/>
+      <line x1="256" y1="256" x2="191" y2="236"/>
+    </g>
+
+    <g fill="#f7f9fc">
+      <circle cx="256" cy="190" r="6"/>
+      <circle cx="321" cy="236" r="6"/>
+      <circle cx="297" cy="315" r="6"/>
+      <circle cx="215" cy="315" r="6"/>
+      <circle cx="191" cy="236" r="6"/>
+    </g>
+
+    <circle cx="256" cy="256" r="13" fill="url(#coreGrad)" filter="url(#softGlow)"/>
+    <circle cx="256" cy="256" r="5" fill="#fff8f0"/>
+  </g>
+</svg>

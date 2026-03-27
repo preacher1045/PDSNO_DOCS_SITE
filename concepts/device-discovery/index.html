@@ -1,0 +1,2407 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Partially Distributed Software-Defined Network Orchestrator — open-source multi-vendor network governance">
+      
+      
+        <meta name="author" content="Alexander Adjei">
+      
+      
+        <link rel="canonical" href="https://github.com/preacher1045/PDSNO_DOCS_SITE/concepts/device-discovery/">
+      
+      
+        <link rel="prev" href="../network-information-base/">
+      
+      
+        <link rel="next" href="../config-approval/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Device discovery - PDSNO</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#device-discovery" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PDSNO" class="md-header__button md-logo" aria-label="PDSNO" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PDSNO
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Device discovery
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/preacher1045/Partially-Distributed-Smart-Network-Optimizer-PDSNO-" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Partially-Distributed-Smart-Network-Optimizer-PDSNO-
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PDSNO" class="md-nav__button md-logo" aria-label="PDSNO" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    PDSNO
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/preacher1045/Partially-Distributed-Smart-Network-Optimizer-PDSNO-" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Partially-Distributed-Smart-Network-Optimizer-PDSNO-
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/what-is-pdsno/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is PDSNO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/how-it-works/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/system-goals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System goals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../controller-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller hierarchy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../controller-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-information-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Information Base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Device discovery
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Device discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#roles-in-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roles in discovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discovery-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery triggers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scan protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arp-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ARP scan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icmp-ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ICMP ping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmp-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMP query
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-complete-discovery-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The complete discovery cycle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The complete discovery cycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stage-1-build-scan-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1 — Build scan targets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-2-run-parallel-scans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2 — Run parallel scans
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-3-consolidate-per-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3 — Consolidate per device
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-4-diff-against-nib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 4 — Diff against NIB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-5-write-to-nib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 5 — Write to NIB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-6-send-delta-report-to-rc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 6 — Send delta report to RC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regional-controller-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regional Controller processing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regional Controller processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stage-7-validate-the-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 7 — Validate the report
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-8-deduplicate-across-lcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 8 — Deduplicate across LCs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-9-anomaly-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 9 — Anomaly detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-10-send-regional-summary-to-gc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 10 — Send regional summary to GC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-controller-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Controller processing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key design decisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan policy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-types-written-during-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event types written during discovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config-approval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config approval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy-propagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Policy propagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../communication-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Communication model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/threat-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threat model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/data-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/scan-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scan policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/deployment-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/repository-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repository structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../design-decisions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Decisions
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/how-to-contribute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to contribute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/testing-framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vendor Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Vendor Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vendor-analysis/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vendor-analysis/gap-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gap analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#roles-in-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roles in discovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#discovery-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery triggers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan protocols
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scan protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arp-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ARP scan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icmp-ping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ICMP ping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snmp-query" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SNMP query
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-complete-discovery-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The complete discovery cycle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The complete discovery cycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stage-1-build-scan-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1 — Build scan targets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-2-run-parallel-scans" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2 — Run parallel scans
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-3-consolidate-per-device" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3 — Consolidate per device
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-4-diff-against-nib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 4 — Diff against NIB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-5-write-to-nib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 5 — Write to NIB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-6-send-delta-report-to-rc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 6 — Send delta report to RC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#regional-controller-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regional Controller processing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Regional Controller processing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stage-7-validate-the-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 7 — Validate the report
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-8-deduplicate-across-lcs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 8 — Deduplicate across LCs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-9-anomaly-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 9 — Anomaly detection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-10-send-regional-summary-to-gc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 10 — Send regional summary to GC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-controller-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Controller processing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key design decisions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scan-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scan policy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-types-written-during-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event types written during discovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="device-discovery">Device discovery</h1>
+<p>Device discovery is how PDSNO learns what exists in the network. Every device record in the NIB was put there by a discovery cycle. Without discovery, there is nothing to govern.</p>
+<hr />
+<h2 id="roles-in-discovery">Roles in discovery</h2>
+<table>
+<thead>
+<tr>
+<th>Controller</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Local Controller</strong></td>
+<td>Runs the actual network scans. Owns raw scan results. Consolidates multi-protocol data per device. Writes to the local NIB view. Reports to RC.</td>
+</tr>
+<tr>
+<td><strong>Regional Controller</strong></td>
+<td>Receives discovery reports from all LCs in its zone. Validates, deduplicates across LCs. Writes to the regional NIB view. Detects cross-LC anomalies. Reports summary to GC.</td>
+</tr>
+<tr>
+<td><strong>Global Controller</strong></td>
+<td>Receives regional summaries. Runs global deduplication. Produces network-wide device inventory. Detects cross-region anomalies.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="discovery-triggers">Discovery triggers</h2>
+<p>Discovery does not only run on a schedule. Four triggers exist:</p>
+<table>
+<thead>
+<tr>
+<th>Trigger</th>
+<th>Initiator</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scheduled</strong></td>
+<td>LC scheduler</td>
+<td>Every <code>policy.discovery_interval</code> seconds (default: 300s)</td>
+</tr>
+<tr>
+<td><strong>On-demand</strong></td>
+<td>RC or GC sends <code>DISCOVERY_REQUEST</code></td>
+<td>After a config change, after an incident, when a new region comes online</td>
+</tr>
+<tr>
+<td><strong>Event-driven</strong></td>
+<td>LC detects a link-state change via SBI</td>
+<td>When the network signals something changed</td>
+</tr>
+<tr>
+<td><strong>Bootstrap</strong></td>
+<td>GC triggers once at system startup</td>
+<td>Initial population of the NIB on first deployment</td>
+</tr>
+</tbody>
+</table>
+<p>The flow is identical regardless of which trigger fires — only the initiating event differs.</p>
+<hr />
+<h2 id="scan-protocols">Scan protocols</h2>
+<p>Each Local Controller runs three scan protocols in parallel against its assigned subnet:</p>
+<h3 id="arp-scan">ARP scan</h3>
+<p>Sends ARP requests to all IPs in the subnet and collects responses. Returns <code>{ip_address, mac_address}</code> pairs. Works only within the local broadcast domain (L2 network). This is the primary discovery mechanism — it runs against every host in the subnet.</p>
+<h3 id="icmp-ping">ICMP ping</h3>
+<p>Confirms reachability of IPs found by ARP and measures round-trip time. Runs concurrently with ARP. Devices that respond to ARP but not ICMP are still recorded — ICMP blocking is common on managed devices.</p>
+<h3 id="snmp-query">SNMP query</h3>
+<p>Enriches known devices with vendor information, hostname, interface list, and uptime. Runs only against IPs already confirmed reachable by ARP or ICMP — never cold-probed. SNMP failure is non-critical: a device is still recorded from ARP/ICMP data; SNMP enrichment is optional.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ARP scan      ──► {ip, mac} pairs
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ICMP ping     ──► {ip, reachable, rtt_ms}
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>SNMP query    ──► {ip, vendor, hostname, interfaces, uptime}
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                                │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                                ▼
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                    Merge by MAC address
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                                │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                                ▼
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                    Single DeviceRecord per device
+</code></pre></div>
+<hr />
+<h2 id="the-complete-discovery-cycle">The complete discovery cycle</h2>
+<h3 id="stage-1-build-scan-targets">Stage 1 — Build scan targets</h3>
+<p>The LC reads its active policy from the NIB to determine which subnets and protocols to scan. The LC does not decide this itself — policy controls what it is permitted to scan.</p>
+<p>If no scan targets are found in policy, the cycle is skipped and a <code>DISCOVERY_SKIPPED</code> event is written to the Event Log.</p>
+<h3 id="stage-2-run-parallel-scans">Stage 2 — Run parallel scans</h3>
+<p>All three protocols run concurrently using async I/O. A single protocol failing (SNMP timeout, ICMP blocked) does not abort the cycle — the LC logs <code>SCAN_PROTOCOL_FAILED</code> and continues with available data. A complete scan failure across all protocols writes <code>DISCOVERY_CYCLE_FAILED</code> and notifies the RC, but does not change any existing device records.</p>
+<h3 id="stage-3-consolidate-per-device">Stage 3 — Consolidate per device</h3>
+<p>Results from all three protocols are merged into a single <code>DeviceRecord</code> per MAC address. MAC address is the stable unique key — everything deduplicates on it. If ARP found the device but SNMP timed out, the record is created with available data and <code>snmp_reachable: false</code>.</p>
+<h3 id="stage-4-diff-against-nib">Stage 4 — Diff against NIB</h3>
+<p>The consolidated results are compared against what the NIB already knows:</p>
+<ul>
+<li><strong>NEW</strong> — MAC not in NIB → will be inserted</li>
+<li><strong>UPDATED</strong> — MAC in NIB, attributes changed (IP, status, hostname) → will be updated</li>
+<li><strong>UNCHANGED</strong> — MAC in NIB, no changes → no write needed</li>
+<li><strong>DISAPPEARED</strong> — MAC was in NIB but not seen this cycle → missed cycle counter incremented</li>
+</ul>
+<p>Only NEW and UPDATED devices trigger NIB writes. Unchanged devices are skipped — no write means no version increment, no conflict risk.</p>
+<h3 id="stage-5-write-to-nib">Stage 5 — Write to NIB</h3>
+<p><strong>New devices</strong> receive an allocated <code>device_id</code> (format: <code>nib-dev-{sequence}</code>) and are inserted with <code>version = 0</code>.</p>
+<p><strong>Updated devices</strong> are written with a version check — the update only commits if the stored version matches the version the LC read. If another controller updated the record since the LC's read, the write returns <code>CONFLICT</code> and the LC re-reads and retries.</p>
+<p><strong>Disappeared devices</strong> are not immediately marked inactive. The LC increments a missed cycle counter. Only after <code>policy.missed_cycles_before_inactive</code> consecutive missed cycles (default: 3) does the device status change to <code>inactive</code>. This prevents a single slow or failed scan from incorrectly removing healthy devices from the NIB.</p>
+<h3 id="stage-6-send-delta-report-to-rc">Stage 6 — Send delta report to RC</h3>
+<p>The LC sends only what changed — new, updated, and inactive devices. Unchanged devices are not included. This delta-only approach keeps report sizes manageable as networks grow.</p>
+<p>The report includes the <code>policy_version</code> the LC was operating under. The RC checks this during validation.</p>
+<hr />
+<h2 id="regional-controller-processing">Regional Controller processing</h2>
+<h3 id="stage-7-validate-the-report">Stage 7 — Validate the report</h3>
+<p>The RC checks:
+- The reporting LC is registered and active in the NIB
+- The <code>policy_version</code> in the report matches the RC's current active policy</p>
+<p>A stale policy version is flagged but not rejected — the LC may have been slightly behind on policy sync. An unrecognised or inactive LC is rejected outright: <code>DISCOVERY_REPORT_REJECTED</code>.</p>
+<h3 id="stage-8-deduplicate-across-lcs">Stage 8 — Deduplicate across LCs</h3>
+<p>A device visible to two LCs (sitting at the boundary between two LC zones) generates reports from both. The RC deduplicates using MAC address as the canonical key:</p>
+<ul>
+<li>If the same MAC is reported by two LCs, the record with the more recent <code>last_seen</code> timestamp wins</li>
+<li>Both observations are recorded in the Event Log (<code>DEVICE_MULTI_LC</code>)</li>
+<li>If the device is now reported by a different LC than the one that originally registered it, the <code>local_controller</code> field is updated (<code>DEVICE_LC_REASSIGNED</code>)</li>
+</ul>
+<h3 id="stage-9-anomaly-detection">Stage 9 — Anomaly detection</h3>
+<p>The RC runs anomaly checks that individual LCs cannot perform because they only see their own subnet:</p>
+<p><strong>Cross-region device</strong> — the same MAC address appearing in two different regions simultaneously. This should not happen in a well-segmented network. May indicate MAC spoofing, a misconfigured tunnel, or a data error. Flagged as <code>ANOMALY_CROSS_REGION_DEVICE</code>.</p>
+<p><strong>Discovery spike</strong> — a single LC reporting an unusually large number of new devices in one cycle. May indicate scan injection or a misconfigured CIDR. Flagged as <code>ANOMALY_DISCOVERY_SPIKE</code>.</p>
+<p>Anomalies are flagged to the Event Log. The discovery system does not take autonomous action on them — a human or future policy engine decides what to do.</p>
+<h3 id="stage-10-send-regional-summary-to-gc">Stage 10 — Send regional summary to GC</h3>
+<p>The RC sends an aggregated summary to the GC: total new/updated/inactive devices across all LCs in the zone, list of LCs that reported, list of LCs that did not report, and any flagged anomalies.</p>
+<hr />
+<h2 id="global-controller-processing">Global Controller processing</h2>
+<p>The GC receives regional summaries and runs global-level checks:</p>
+<p><strong>Global MAC deduplication</strong> — the same MAC appearing in two different regions is a serious anomaly flagged as <code>ANOMALY_GLOBAL_MAC_COLLISION</code>. Possible causes: MAC spoofing, misconfigured VXLAN/GRE tunnels, or a data error in regional reporting.</p>
+<p><strong>Missing RC detection</strong> — if an RC's summary does not arrive within the expected window, the GC flags <code>DISCOVERY_RC_MISSING</code> and may trigger an on-demand discovery request.</p>
+<p><strong>Global inventory update</strong> — the GC updates its global NIB view with device counts and status per region. This is the network-wide inventory that the NBI exposes to external tools.</p>
+<hr />
+<h2 id="key-design-decisions">Key design decisions</h2>
+<p><strong>MAC address as the canonical key.</strong> IP addresses change. Hostnames change. MAC addresses are hardware-bound and stable across reboots, IP reassignments, and VLAN changes. Everything in the discovery system keys on MAC.</p>
+<p><strong>Delta reporting only.</strong> Each LC sends only what changed to its RC — not the full device inventory. This keeps report sizes manageable as subnets grow. An RC receiving a full inventory of 254 devices every 300 seconds from 20 LCs is a bandwidth and processing problem that delta reporting avoids entirely.</p>
+<p><strong>Failed scans do not delete data.</strong> A device not seen in one cycle is not immediately marked inactive. Multiple consecutive missed cycles are required. This prevents transient network noise — a temporary ARP flooding issue, a momentary ICMP rate-limit — from incorrectly removing valid devices from the NIB.</p>
+<p><strong>Anomaly detection is passive.</strong> The discovery system flags anomalies to the Event Log. It does not quarantine devices, block traffic, or take any network action autonomously. The governance layer — config approval — handles remediation.</p>
+<hr />
+<h2 id="scan-policy">Scan policy</h2>
+<p>What a Local Controller is permitted to scan is defined by policy, not by the LC itself. The <code>scan_policy.yaml</code> controls:</p>
+<ul>
+<li>Which subnets are approved for scanning</li>
+<li>Which protocols are permitted</li>
+<li>Scan schedule and maximum rate</li>
+<li>Resource limits (max threads, concurrent probes, probe timeout)</li>
+<li>Safety constraints (max packet rate per device, device blacklist)</li>
+</ul>
+<p>A Local Controller that receives no scan targets from its active policy skips the discovery cycle entirely and logs <code>DISCOVERY_SKIPPED</code>. It does not scan anything not explicitly permitted.</p>
+<p>→ See <a href="../../reference/scan-policy/">Scan policy</a> for the full policy schema and configuration reference.</p>
+<hr />
+<h2 id="event-types-written-during-discovery">Event types written during discovery</h2>
+<table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>Written by</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DISCOVERY_SKIPPED</code></td>
+<td>LC</td>
+<td>No scan targets in policy</td>
+</tr>
+<tr>
+<td><code>SCAN_PROTOCOL_FAILED</code></td>
+<td>LC</td>
+<td>Single protocol failure</td>
+</tr>
+<tr>
+<td><code>DISCOVERY_CYCLE_FAILED</code></td>
+<td>LC</td>
+<td>All protocols failed</td>
+</tr>
+<tr>
+<td><code>DEVICE_DISCOVERED</code></td>
+<td>LC</td>
+<td>New device written to NIB</td>
+</tr>
+<tr>
+<td><code>DEVICE_UPDATED</code></td>
+<td>LC</td>
+<td>Existing device record updated</td>
+</tr>
+<tr>
+<td><code>DEVICE_INACTIVE</code></td>
+<td>LC</td>
+<td>Device missed required cycles</td>
+</tr>
+<tr>
+<td><code>DISCOVERY_WRITE_CONFLICT</code></td>
+<td>LC</td>
+<td>Optimistic lock conflict during write</td>
+</tr>
+<tr>
+<td><code>DISCOVERY_REPORT_SENT</code></td>
+<td>LC</td>
+<td>Report dispatched to RC</td>
+</tr>
+<tr>
+<td><code>DISCOVERY_REPORT_RECEIVED</code></td>
+<td>RC</td>
+<td>Report accepted</td>
+</tr>
+<tr>
+<td><code>DISCOVERY_REPORT_REJECTED</code></td>
+<td>RC</td>
+<td>Unknown or inactive LC</td>
+</tr>
+<tr>
+<td><code>DISCOVERY_REPORT_STALE_POLICY</code></td>
+<td>RC</td>
+<td>Policy version mismatch (flagged, not rejected)</td>
+</tr>
+<tr>
+<td><code>DEVICE_LC_REASSIGNED</code></td>
+<td>RC</td>
+<td>Device now reported by different LC</td>
+</tr>
+<tr>
+<td><code>DEVICE_MULTI_LC</code></td>
+<td>RC</td>
+<td>Same device seen by multiple LCs</td>
+</tr>
+<tr>
+<td><code>ANOMALY_CROSS_REGION_DEVICE</code></td>
+<td>RC</td>
+<td>Same MAC in two regions</td>
+</tr>
+<tr>
+<td><code>ANOMALY_DISCOVERY_SPIKE</code></td>
+<td>RC</td>
+<td>Unusually large new-device count</td>
+</tr>
+<tr>
+<td><code>REGIONAL_SUMMARY_SENT</code></td>
+<td>RC</td>
+<td>Summary dispatched to GC</td>
+</tr>
+<tr>
+<td><code>ANOMALY_GLOBAL_MAC_COLLISION</code></td>
+<td>GC</td>
+<td>Same MAC in two regions (global check)</td>
+</tr>
+<tr>
+<td><code>LC_DISCOVERY_OVERDUE</code></td>
+<td>RC</td>
+<td>LC has not reported within timeout</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-pages">Related pages</h2>
+<ul>
+<li><a href="../network-information-base/">Network Information Base</a> — Device Table schema and optimistic locking</li>
+<li><a href="../controller-hierarchy/">Controller hierarchy</a> — how the discovery hierarchy relates to the governance hierarchy</li>
+<li><a href="../../reference/scan-policy/">Scan policy</a> — full policy schema</li>
+<li><a href="../../reference/api-reference/">API reference</a> — DISCOVERY_REPORT and DISCOVERY_SUMMARY message schemas</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../network-information-base/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Network Information Base">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Network Information Base
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../config-approval/" class="md-footer__link md-footer__link--next" aria-label="Next: Config approval">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Config approval
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/preacher1045/Partially-Distributed-Smart-Network-Optimizer-PDSNO-" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,88 @@
+/* TENKEI brand - PDSNO docs custom styles */
+
+:root {
+  --tenkei-navy: #0d1b2a;
+  --tenkei-blue: #1a73e8;
+  --tenkei-light: #e6e9ec;
+  --tenkei-green: #2bc48a;
+  --tenkei-orange: #e67e22;
+  --tenkei-orange-light: #f0a35a;
+  --tenkei-orange-dark: #c76714;
+}
+
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #1a2330;
+  --md-default-bg-color--light: #232f3e;
+  --md-default-bg-color--lighter: #2b3848;
+  --md-default-fg-color: #e6e9ec;
+  --md-default-fg-color--light: #b9c3cf;
+  --md-primary-fg-color: var(--tenkei-orange);
+  --md-primary-fg-color--light: var(--tenkei-orange-light);
+  --md-primary-fg-color--dark: var(--tenkei-orange-dark);
+  --md-accent-fg-color: var(--tenkei-blue);
+  --md-typeset-a-color: #69a5ff;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: #111a25;
+  --md-default-bg-color--light: #182433;
+  --md-default-bg-color--lighter: #223246;
+  --md-default-fg-color: var(--tenkei-light);
+  --md-default-fg-color--light: #b8c3cf;
+  --md-primary-fg-color: var(--tenkei-orange);
+  --md-primary-fg-color--light: var(--tenkei-orange-light);
+  --md-primary-fg-color--dark: var(--tenkei-orange-dark);
+  --md-accent-fg-color: var(--tenkei-green);
+  --md-typeset-a-color: #5ea5ff;
+}
+
+/* Add the ASCII watermark to the page background with low contrast. */
+.md-main {
+  position: relative;
+  z-index: 0;
+}
+
+.md-main::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("../assets/images/ascii_background_watermark.png");
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: 420px auto;
+  pointer-events: none;
+  z-index: -1;
+}
+
+[data-md-color-scheme="default"] .md-main::before {
+  opacity: 0.06;
+}
+
+[data-md-color-scheme="slate"] .md-main::before {
+  opacity: 0.09;
+}
+
+/* Keep the logo crisp and compact in the header. */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 1.9rem;
+  width: 1.9rem;
+  filter: brightness(1.2) contrast(1.15) saturate(1.08)
+    drop-shadow(0 0 4px rgba(240, 163, 90, 0.2));
+}
+
+/* Tighten the home page grid cards */
+.md-typeset .grid.cards > ul {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Subtle left border on admonitions to reinforce brand */
+.md-typeset .admonition {
+  border-left-color: var(--tenkei-orange);
+}
+
+/* Make the status table on home page more compact */
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color);
+  color: white;
+}
