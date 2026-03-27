@@ -1193,6 +1193,8 @@
           
         
       
+        
+      
     
     
     
@@ -1229,6 +1231,11 @@
 
             </a>
             
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
           </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
@@ -1242,6 +1249,34 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="design-decisions/roadmap-vision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap and Vision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -1598,10 +1633,13 @@
 <h1 id="pdsno-partially-distributed-software-defined-network-orchestrator">PDSNO — Partially Distributed Software-Defined Network Orchestrator</h1>
 <div class="admonition info">
 <p class="admonition-title">A Note From The Author</p>
-<p>This documentation is a work in progress. I am an IT student with a strong focus on computer networking, and I have been building PDSNO as a personal passion project for over the last 1.5 years while studying.</p>
-<p>Some sections may still be incomplete or evolving, but they represent my best effort to consolidate project ideas, design decisions, and scattered notes into one documentation site.</p>
-<p>Contributions are very welcome, especially around documentation quality, code quality, and structure. I used AI assistance to help with cleanup and consolidation, and I appreciate everyone willing to help improve the project.</p>
+<p>Work in Progress: PDSNO is a passion project I’ve been architecting for the last 1.5 years as an IT student obsessed with networking.</p>
+<p>This documentation is a living consolidation of my research and design decisions. While the PoC was built with AI assistance and passed initial testing, it is still evolving.</p>
+<p>I am actively looking for contributors. Whether it's refining the code, improving documentation, or hardening the architecture, your expertise is welcome. Let’s build a vendor-neutral future together.</p>
 </div>
+<blockquote>
+<p>Contributor context: See the <a href="design-decisions/roadmap-vision/">6-12 month Roadmap &amp; Vision</a> to understand where PDSNO is headed next.</p>
+</blockquote>
 <p><strong>PDSNO</strong> is an open-source, enterprise-grade network orchestration framework that governs configuration changes, enforces policy, and maintains a unified audit trail across multi-vendor network infrastructure.</p>
 <p>It sits <em>above</em> your existing tools — Cisco ACI, VMware NSX, Juniper Apstra — as a coordination and governance layer, giving you control and visibility across your entire network, not just the parts your vendor covers.</p>
 <h2 id="why-pdsno-exists">Why PDSNO exists</h2>
