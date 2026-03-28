@@ -1,5 +1,14 @@
 # PDSNO — Partially Distributed Software-Defined Network Orchestrator
 
+!!! info "A Note From The Author"
+    Work in Progress: PDSNO is a passion project I’ve been architecting for the last 1.5 years as an IT student obsessed with networking.
+
+    This documentation is a living consolidation of my research and design decisions. While the PoC was built with AI assistance and passed initial testing, it is still evolving.
+
+    I am actively looking for contributors. Whether it's refining the code, improving documentation, or hardening the architecture, your expertise is welcome. Let’s build a vendor-neutral future together.
+
+> Contributor context: See the [6-12 month Roadmap & Vision](design-decisions/roadmap-vision.md) to understand where PDSNO is headed next.
+
 **PDSNO** is an open-source, enterprise-grade network orchestration framework that governs configuration changes, enforces policy, and maintains a unified audit trail across multi-vendor network infrastructure.
 
 It sits *above* your existing tools — Cisco ACI, VMware NSX, Juniper Apstra — as a coordination and governance layer, giving you control and visibility across your entire network, not just the parts your vendor covers.

@@ -23,6 +23,13 @@ Every configuration request is classified into one of four sensitivity levels. T
 
 ## The approval flow
 
+!!! note "Draft diagrams"
+  These diagrams are not final. They will continue to improve as PDSNO matures, but they already communicate the intended approval and execution model.
+
+![Configuration approval sequence diagram](../assets/images/config_approval_sequence.png)
+
+![Configuration execution flow sequence diagram](../assets/images/configuration_execution_flow_sequence_diagram.png)
+
 ### Stage 1 — LC: Proposal creation
 
 The Local Controller validates that target devices exist in the NIB and are reachable, then creates the proposal:

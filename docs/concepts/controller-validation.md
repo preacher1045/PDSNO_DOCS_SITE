@@ -51,6 +51,11 @@ Requesting Controller                 Validating Controller
         │    {assigned_id, cert, role}          │
 ```
 
+!!! note "Draft diagram"
+  This diagram is an early working version. It may be refined as the project evolves, but it captures the current validation flow clearly.
+
+![Controller verification sequence diagram](../assets/images/controller_verification_sequence.png)
+
 ---
 
 ### Step 1 — Timestamp and blocklist

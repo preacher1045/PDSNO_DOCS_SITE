@@ -4,6 +4,17 @@ This page maps documented shortcomings of major proprietary network orchestratio
 
 This is a living document. Update it as customer conversations produce concrete feedback. Real practitioner pain trumps any amount of market research — when a network engineer tells you their specific problem, write it down here with a date and an anonymised source label.
 
+!!! note "Draft diagrams"
+	The following visuals are early versions and will improve as the project grows. They are included now to clarify the core adapter and translation ideas.
+
+![Adapter architecture component diagram](../assets/images/adaptor_architecture_component_architecture.png)
+
+![Intent translation data flow diagram](../assets/images/intent_translation_data_flow_diagram.png)
+
+![Multi-vendor translation comparison](../assets/images/multi-vendor_translation_comparison.png)
+
+![Adapter connection lifecycle state machine](../assets/images/State%20machine_adapter_connection_lifecycle.png)
+
 ---
 
 ## Gap 1 — Vendor lock-in at the orchestration layer

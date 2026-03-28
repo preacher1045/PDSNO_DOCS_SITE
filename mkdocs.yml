@@ -1,7 +1,7 @@
 site_name: PDSNO
 site_description: Partially Distributed Software-Defined Network Orchestrator — open-source multi-vendor network governance
 site_author: Alexander Adjei
-site_url: https://github.com/preacher1045/PDSNO_DOCS_SITE/
+site_url: https://preacher1045.github.io/PDSNO_DOCS_SITE/
 repo_url: https://github.com/preacher1045/Partially-Distributed-Smart-Network-Optimizer-PDSNO-
 repo_name: "Partially-Distributed-Smart-Network-Optimizer-PDSNO-"
 edit_uri: ""
@@ -22,10 +22,9 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
   features:
-    - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
+    - navigation.indexes
     - navigation.top
     - navigation.footer
     - toc.follow
@@ -38,11 +37,19 @@ theme:
     code: IBM Plex Mono
   icon:
     repo: fontawesome/brands/github
+  logo: assets/images/logo.png
 
 extra:
+  version:
+    provider: mike
+    default: latest
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/your-org/pdsno
+      link: https://github.com/preacher1045/Partially-Distributed-Smart-Network-Optimizer-PDSNO-
+
+plugins:
+  - search
+  - mike
 
 extra_css:
   - stylesheets/extra.css
@@ -94,6 +101,7 @@ nav:
 
   - Design Decisions:
       - Overview: design-decisions/index.md
+      - Roadmap and Vision: design-decisions/roadmap-vision.md
 
   - Contributing:
       - How to contribute: contributing/how-to-contribute.md

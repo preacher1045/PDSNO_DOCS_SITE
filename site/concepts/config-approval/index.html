@@ -1,0 +1,2343 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Partially Distributed Software-Defined Network Orchestrator — open-source multi-vendor network governance">
+      
+      
+        <meta name="author" content="Alexander Adjei">
+      
+      
+        <link rel="canonical" href="https://preacher1045.github.io/PDSNO_DOCS_SITE/concepts/config-approval/">
+      
+      
+        <link rel="prev" href="../device-discovery/">
+      
+      
+        <link rel="next" href="../policy-propagation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Config approval - PDSNO</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,700,700i%7CIBM+Plex+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"IBM Plex Sans";--md-code-font:"IBM Plex Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuration-approval" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PDSNO" class="md-header__button md-logo" aria-label="PDSNO" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PDSNO
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Config approval
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="orange"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/preacher1045/Partially-Distributed-Smart-Network-Optimizer-PDSNO-" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Partially-Distributed-Smart-Network-Optimizer-PDSNO-
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PDSNO" class="md-nav__button md-logo" aria-label="PDSNO" data-md-component="logo">
+      
+  <img src="../../assets/images/logo.png" alt="logo">
+
+    </a>
+    PDSNO
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/preacher1045/Partially-Distributed-Smart-Network-Optimizer-PDSNO-" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Partially-Distributed-Smart-Network-Optimizer-PDSNO-
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/what-is-pdsno/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is PDSNO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/how-it-works/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How it works
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/quick-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/system-goals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System goals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../controller-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller hierarchy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../controller-validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Controller validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-information-base/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Information Base
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../device-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Device discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config approval
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config approval
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sensitivity-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensitivity levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-approval-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The approval flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The approval flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stage-1-lc-proposal-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1 — LC: Proposal creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-2-rc-classification-and-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2 — RC: Classification and decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-3a-rc-approves-lowmedium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3a — RC approves LOW/MEDIUM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-3b-rc-escalates-high-to-gc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3b — RC escalates HIGH to GC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-4-gc-global-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 4 — GC: Global validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-5-lc-token-verification-and-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 5 — LC: Token verification and execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-6-lc-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 6 — LC: Rollback
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-status-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config status state machine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escalation-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escalation triggers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emergency-fast-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Emergency fast path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-token-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution token structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeouts-and-retry-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeouts and retry contracts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nib-writes-per-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NIB writes per stage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../policy-propagation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Policy propagation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../communication-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Communication model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../security/threat-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Threat model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/data-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/scan-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scan policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/deployment-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deployment guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/repository-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Repository structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../design-decisions/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Decisions
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-decisions/roadmap-vision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap and Vision
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/how-to-contribute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to contribute
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/testing-framework/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vendor Analysis
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Vendor Analysis
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vendor-analysis/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vendor-analysis/gap-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gap analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sensitivity-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensitivity levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-approval-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The approval flow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The approval flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stage-1-lc-proposal-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1 — LC: Proposal creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-2-rc-classification-and-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2 — RC: Classification and decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-3a-rc-approves-lowmedium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3a — RC approves LOW/MEDIUM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-3b-rc-escalates-high-to-gc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3b — RC escalates HIGH to GC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-4-gc-global-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 4 — GC: Global validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-5-lc-token-verification-and-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 5 — LC: Token verification and execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stage-6-lc-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 6 — LC: Rollback
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-status-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config status state machine
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escalation-triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Escalation triggers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emergency-fast-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Emergency fast path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-token-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution token structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeouts-and-retry-contracts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeouts and retry contracts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nib-writes-per-stage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NIB writes per stage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="configuration-approval">Configuration approval</h1>
+<p>The configuration approval system governs how changes are proposed, classified, approved, and executed across the PDSNO controller hierarchy. It is the most operationally significant flow in the system — every change to a managed network device passes through it.</p>
+<p>Its purpose is to balance four competing requirements: security (prevent unauthorised or unsafe changes), speed (avoid bottlenecks on low-risk changes), scalability (work across large multi-region deployments), and auditability (every decision is traceable and reconstructible).</p>
+<hr />
+<h2 id="sensitivity-levels">Sensitivity levels</h2>
+<p>Every configuration request is classified into one of four sensitivity levels. The level determines the approval path.</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Description</th>
+<th>Approval path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LOW</strong></td>
+<td>Safe, localised, reversible</td>
+<td>LC direct execution or RC auto-approval</td>
+</tr>
+<tr>
+<td><strong>MEDIUM</strong></td>
+<td>Operational impact, limited scope</td>
+<td>Regional Controller approval required</td>
+</tr>
+<tr>
+<td><strong>HIGH</strong></td>
+<td>Core network, security-critical, multi-region</td>
+<td>Global Controller approval required</td>
+</tr>
+<tr>
+<td><strong>EMERGENCY</strong></td>
+<td>Immediate risk mitigation — active incident</td>
+<td>LC executes immediately; RC and GC notified post-facto</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The critical rule:</strong> Lower-tier controllers may <em>suggest</em> a sensitivity level, but higher tiers always re-classify independently. A Local Controller's suggested sensitivity is advisory only — never authoritative. A compromised LC claiming LOW for a destructive change is caught at the Regional Controller.</p>
+<hr />
+<h2 id="the-approval-flow">The approval flow</h2>
+<div class="admonition note">
+<p class="admonition-title">Draft diagrams</p>
+</div>
+<p>These diagrams are not final. They will continue to improve as PDSNO matures, but they already communicate the intended approval and execution model.</p>
+<p><img alt="Configuration approval sequence diagram" src="../../assets/images/config_approval_sequence.png" /></p>
+<p><img alt="Configuration execution flow sequence diagram" src="../../assets/images/configuration_execution_flow_sequence_diagram.png" /></p>
+<h3 id="stage-1-lc-proposal-creation">Stage 1 — LC: Proposal creation</h3>
+<p>The Local Controller validates that target devices exist in the NIB and are reachable, then creates the proposal:</p>
+<ul>
+<li>Generates a <code>proposal_id</code> and <code>config_hash</code> (SHA-256 of the normalised config payload)</li>
+<li>Suggests a sensitivity level based on local policy evaluation</li>
+<li>Builds a <strong>rollback payload</strong> — the instructions to undo this change if execution fails. Required at proposal time, not constructed after failure.</li>
+<li>Writes the proposal to the Config Table with status <code>PENDING</code></li>
+<li>Sends to the Regional Controller</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Rollback payload is mandatory</p>
+<p>A proposal cannot be submitted without a rollback payload for MEDIUM sensitivity and above. This forces the proposer to think about reversal before the change is approved. If a change cannot be reversed, it must be declared as such and subject to a higher approval threshold.</p>
+</div>
+<p><strong>Emergency path:</strong> If the suggested sensitivity is <code>EMERGENCY</code>, the LC executes immediately without waiting for approval, then notifies RC and GC asynchronously. See the <a href="#emergency-fast-path">emergency section</a> below.</p>
+<hr />
+<h3 id="stage-2-rc-classification-and-decision">Stage 2 — RC: Classification and decision</h3>
+<p>The Regional Controller re-classifies sensitivity independently, checks for conflicts, and decides:</p>
+<p><strong>Re-classification</strong> runs against the RC's own policy. The LC's suggestion is logged but does not influence the RC's decision. If the RC classifies differently from the LC's suggestion, the RC's classification prevails.</p>
+<p><strong>Policy version check</strong> — the proposal's <code>policy_version</code> must match the RC's current active policy version. Mismatched versions are rejected with <code>POLICY_VERSION_MISMATCH</code>. This prevents a proposal submitted under an outdated policy from slipping through under changed rules.</p>
+<p><strong>Conflict check</strong> — for each target device, the RC checks the Controller Sync Table for an active <code>CONFIG_LOCK</code>. If a lock exists, the proposal is queued or rejected depending on priority policy.</p>
+<p><strong>Lock acquisition</strong> — if no conflicts, the RC acquires a <code>CONFIG_LOCK</code> for each target device. These locks are held until execution is confirmed. Acquiring locks at approval time prevents concurrent conflicting changes from racing to execute.</p>
+<p><strong>Decision:</strong>
+- LOW / MEDIUM → RC approves, issues execution token, instructs LC
+- HIGH → RC escalates to GC, awaits response (300s timeout; default-deny on timeout)
+- EMERGENCY → handled separately</p>
+<hr />
+<h3 id="stage-3a-rc-approves-lowmedium">Stage 3a — RC approves LOW/MEDIUM</h3>
+<p>The RC issues a signed execution token and sends an execution instruction to the LC.</p>
+<p><strong>Execution tokens</strong> are cryptographically bound to:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>proposal_id     → this specific proposal only
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>config_hash     → this specific config payload
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>target_devices  → these specific devices only
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>approved_by     → the approving controller&#39;s identity
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>issued_at       → timestamp
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>expires_at      → TTL: 10 minutes for LOW/MEDIUM, 5 minutes for HIGH
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>constraints     → rate limits, rollback requirements, maintenance window flags
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>signature       → HMAC-SHA256 of all fields above
+</code></pre></div>
+<p>A token issued for <code>nib-dev-001</code> cannot execute a change on <code>nib-dev-002</code>. A token for proposal <code>abc-123</code> cannot authorise any other proposal. Tokens are single-use — consumed before execution begins.</p>
+<hr />
+<h3 id="stage-3b-rc-escalates-high-to-gc">Stage 3b — RC escalates HIGH to GC</h3>
+<p>For HIGH-sensitivity changes, the RC forwards the proposal to the Global Controller with additional context:</p>
+<ul>
+<li>Computed blast radius (count and criticality of affected devices)</li>
+<li>List of critical devices in the affected set</li>
+<li>Regional policy version</li>
+<li>RC's own metadata</li>
+</ul>
+<p>The RC waits up to 300 seconds for a GC response. If no response arrives, the RC defaults to DENY and releases all locks. This safe-fail default prevents a GC outage from leaving approvals in limbo indefinitely.</p>
+<hr />
+<h3 id="stage-4-gc-global-validation">Stage 4 — GC: Global validation</h3>
+<p>The Global Controller applies its own checks before approving a HIGH change:</p>
+<ol>
+<li><strong>Immutable policy rules</strong> — if the proposed change conflicts with a GC-flagged immutable rule, it is denied immediately. Immutable rules cannot be overridden by regional or local policy or by escalation.</li>
+<li><strong>Cross-region impact</strong> — if the change affects devices in more than <code>policy.max_regions_per_change</code> regions, it is denied.</li>
+<li><strong>Final approval</strong> — if all checks pass, the GC issues a HIGH-category execution token with a tighter TTL (5 minutes) and returns it to the RC, which forwards it to the LC.</li>
+</ol>
+<hr />
+<h3 id="stage-5-lc-token-verification-and-execution">Stage 5 — LC: Token verification and execution</h3>
+<p>Before touching any device, the LC runs a complete token verification:</p>
+<ol>
+<li>Token has not expired</li>
+<li>Token signature is valid</li>
+<li>Token bindings match the actual execution context (proposal ID, config hash, device list, approver)</li>
+<li>Token has not been used before — consumed atomically before execution begins</li>
+</ol>
+<p>The LC writes <code>EXECUTING</code> to the Config Table <strong>before</strong> touching any device. This ensures that if the LC crashes mid-execution, the NIB reflects an incomplete state and the next reconciliation cycle can handle it correctly.</p>
+<p>Execution applies the config to each target device. On success, the LC writes <code>EXECUTED</code>, releases all device locks, and reports the result upstream.</p>
+<hr />
+<h3 id="stage-6-lc-rollback">Stage 6 — LC: Rollback</h3>
+<p>If any device execution fails, the LC initiates rollback:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>EXECUTING → ROLLING_BACK → ROLLED_BACK (success)
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>                        └── DEGRADED (rollback also failed)
+</code></pre></div>
+<p>The rollback payload was stored at proposal time. The LC applies it to restore each device to its prior state. If rollback itself fails, the device enters <code>DEGRADED</code> state:</p>
+<ul>
+<li>All further automated configuration changes for that device are blocked</li>
+<li>An escalation is raised to RC and GC</li>
+<li>A human operator must explicitly review and resolve the state</li>
+</ul>
+<p><code>DEGRADED</code> is an intentional forcing function — it is better to block automation than to keep applying changes to a device in an unknown state.</p>
+<hr />
+<h2 id="config-status-state-machine">Config status state machine</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>PENDING
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>   │
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>   ├── RC denies ────────────────────────────► DENIED
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>   │
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>   ├── RC approves (LOW/MEDIUM) ────────────► APPROVED ──► EXECUTING
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>   │                                                            │
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>   ├── RC escalates (HIGH)                                      ├──► EXECUTED ──► (done)
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>   │     └── GC denies ──────────────────────► DENIED          │
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>   │     └── GC approves ────────────────────► APPROVED        ├──► ROLLED_BACK
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>   │                                                            │
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>   └── Emergency ──────────────────────────► EXECUTING         └──► DEGRADED
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                                                  │
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>                                          RC/GC may deny post-facto → rollback
+</code></pre></div>
+<hr />
+<h2 id="escalation-triggers">Escalation triggers</h2>
+<p>An RC must escalate to GC when any of these conditions are true:</p>
+<ul>
+<li><code>impact_scope == "global"</code></li>
+<li>Target devices span more than one region</li>
+<li><code>estimated_downtime_seconds</code> exceeds <code>policy.escalation_downtime_threshold</code></li>
+<li>Any target device is flagged <code>critical</code> in the NIB Metadata Store</li>
+<li>RC policy explicitly requires GC sign-off for that device type</li>
+</ul>
+<p>An LC must escalate to RC (instead of executing directly) when:</p>
+<ul>
+<li>Local NIB data for a target device is stale (older than <code>policy.stale_threshold</code>)</li>
+<li>Any target device has a <code>quarantined</code> or <code>suspicious</code> flag in the NIB</li>
+<li>Local policy marks the device as protected</li>
+</ul>
+<hr />
+<h2 id="emergency-fast-path">Emergency fast path</h2>
+<p>Emergency mode exists to contain damage in active incidents — not to bypass governance.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>LC detects incident → creates EMERGENCY proposal
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    Rate limiter allows? → LC executes immediately
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    Config type on permitted list? → only quarantine, rate-limit, null-route allowed
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    Device role permitted? → edge devices only by default
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    └── Write EXECUTING → apply config → write EXECUTED
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    └── Write EMERGENCY_EXECUTION audit entry (mandatory, includes full payload)
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    └── Notify RC and GC asynchronously (10-minute acknowledgement window)
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>         └── If RC/GC deny retrospectively → rollback protocol runs
+</code></pre></div>
+<p>Emergency constraints:</p>
+<ul>
+<li><strong>Rate-limited</strong> — default 3 emergency invocations per controller per hour</li>
+<li><strong>Restricted config types</strong> — only specific containment actions are permitted</li>
+<li><strong>Restricted device roles</strong> — edge devices only by default; core devices require normal approval</li>
+<li><strong>Always audited</strong> — the <code>EMERGENCY_EXECUTION</code> event is the most detailed audit entry in the system, not the least</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Emergency ≠ bypass</p>
+<p>Emergency mode is the most heavily audited path, not the least. Rate limiting, permitted-type restrictions, and mandatory post-facto acknowledgement together ensure emergency mode cannot be used as a routine governance bypass. Repeated emergency invocations without corresponding post-facto approvals trigger automatic controller suspension.</p>
+</div>
+<hr />
+<h2 id="execution-token-structure">Execution token structure</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;token_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid-v4&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">&quot;proposal_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uuid-v4&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">&quot;config_hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha256-hex&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">&quot;target_devices&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;nib-dev-001&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;nib-dev-002&quot;</span><span class="p">],</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nt">&quot;approved_by&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;regional_cntl_zoneA_1&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="nt">&quot;issued_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-02-16T10:30:00Z&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nt">&quot;expires_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-02-16T10:40:00Z&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="nt">&quot;constraints&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nt">&quot;max_devices_per_minute&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="nt">&quot;rollback_required_on_failure&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="nt">&quot;maintenance_window_required&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">  </span><span class="nt">&quot;signature&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hmac-sha256-of-all-fields-above&quot;</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="timeouts-and-retry-contracts">Timeouts and retry contracts</h2>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Timeout</th>
+<th>On failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LC → RC proposal send</td>
+<td>30s, 3 retries (exponential backoff)</td>
+<td>Queue locally; retry after <code>policy.rc_retry_interval</code></td>
+</tr>
+<tr>
+<td>RC → GC escalation response</td>
+<td>300s, no retry</td>
+<td>Default DENY; release all locks</td>
+</tr>
+<tr>
+<td>Execution token TTL (LOW/MEDIUM)</td>
+<td>600s</td>
+<td>LC must request re-approval</td>
+</tr>
+<tr>
+<td>Execution token TTL (HIGH)</td>
+<td>300s</td>
+<td>LC must request re-approval</td>
+</tr>
+<tr>
+<td>Emergency post-facto acknowledgement</td>
+<td>600s</td>
+<td>RC/GC may issue retrospective rollback</td>
+</tr>
+<tr>
+<td>Approval lock TTL</td>
+<td>900s</td>
+<td>Background cleanup releases stale locks</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="nib-writes-per-stage">NIB writes per stage</h2>
+<p>Every stage has mandatory NIB writes. A stage is not complete until its writes are done.</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Write</th>
+<th>Table</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LC proposal</td>
+<td><code>create_config_proposal()</code></td>
+<td>Config Table → <code>PENDING</code></td>
+</tr>
+<tr>
+<td>LC proposal</td>
+<td><code>write_event(CONFIG_PROPOSED)</code></td>
+<td>Event Log</td>
+</tr>
+<tr>
+<td>RC lock</td>
+<td><code>acquire_lock()</code></td>
+<td>Controller Sync</td>
+</tr>
+<tr>
+<td>RC approve</td>
+<td><code>update_config_status()</code></td>
+<td>Config Table → <code>APPROVED</code> + token</td>
+</tr>
+<tr>
+<td>RC approve</td>
+<td><code>write_event(CONFIG_APPROVED)</code></td>
+<td>Event Log</td>
+</tr>
+<tr>
+<td>RC escalate</td>
+<td><code>write_event(CONFIG_ESCALATED)</code></td>
+<td>Event Log</td>
+</tr>
+<tr>
+<td>RC/GC deny</td>
+<td><code>update_config_status()</code></td>
+<td>Config Table → <code>DENIED</code></td>
+</tr>
+<tr>
+<td>RC/GC deny</td>
+<td><code>release_lock()</code></td>
+<td>Controller Sync</td>
+</tr>
+<tr>
+<td>LC execute start</td>
+<td><code>update_config_status()</code></td>
+<td>Config Table → <code>EXECUTING</code></td>
+</tr>
+<tr>
+<td>LC execute end</td>
+<td><code>update_config_status()</code></td>
+<td>Config Table → <code>EXECUTED</code></td>
+</tr>
+<tr>
+<td>LC execute end</td>
+<td><code>release_lock()</code></td>
+<td>Controller Sync</td>
+</tr>
+<tr>
+<td>LC rollback</td>
+<td><code>update_config_status()</code></td>
+<td>Config Table → <code>ROLLED_BACK</code> or <code>DEGRADED</code></td>
+</tr>
+<tr>
+<td>LC rollback fail</td>
+<td><code>update_device_status()</code></td>
+<td>Device Table → <code>degraded</code></td>
+</tr>
+<tr>
+<td>Emergency</td>
+<td><code>write_event(EMERGENCY_EXECUTION)</code></td>
+<td>Event Log</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-pages">Related pages</h2>
+<ul>
+<li><a href="../controller-hierarchy/">Controller hierarchy</a> — which tier approves what</li>
+<li><a href="../network-information-base/">Network Information Base</a> — Config Table and Controller Sync Table schemas</li>
+<li><a href="../security-model/">Security model</a> — how execution tokens resist replay and tampering</li>
+<li><a href="../../security/threat-model/">Threat model</a> — T1 (sensitivity spoofing), T2 (emergency abuse), T4 (token replay)</li>
+<li><a href="../../reference/api-reference/">API reference</a> — CONFIG_PROPOSAL, APPROVAL_RESPONSE, EXECUTION_INSTRUCTION message schemas</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../device-discovery/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Device discovery">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Device discovery
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../policy-propagation/" class="md-footer__link md-footer__link--next" aria-label="Next: Policy propagation">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Policy propagation
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/preacher1045/Partially-Distributed-Smart-Network-Optimizer-PDSNO-" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "navigation.footer", "toc.follow", "search.highlight", "search.suggest", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

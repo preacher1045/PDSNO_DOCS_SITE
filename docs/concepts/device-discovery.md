@@ -61,6 +61,11 @@ SNMP query    ──► {ip, vendor, hostname, interfaces, uptime}
 
 ## The complete discovery cycle
 
+!!! note "Draft diagram"
+    This diagram is an in-progress visual. It may be updated over time, but it reflects the current discovery lifecycle and message flow.
+
+![Device discovery sequence diagram](../assets/images/device_discovery_sequence.png)
+
 ### Stage 1 — Build scan targets
 
 The LC reads its active policy from the NIB to determine which subnets and protocols to scan. The LC does not decide this itself — policy controls what it is permitted to scan.

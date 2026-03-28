@@ -4,6 +4,11 @@ This page is the schema reference for the Network Information Base. It covers th
 
 For the conceptual model — why the NIB exists, how it is accessed, and its consistency guarantees — see [Network Information Base](../concepts/network-information-base.md).
 
+!!! note "Draft diagram"
+    This UML view is a working draft. It may be updated as entities and module boundaries evolve.
+
+![UML class diagram](../assets/images/class_diagram_UML_style.png)
+
 ---
 
 ## Entity base class

@@ -259,5 +259,5 @@ PDSNO uses `ruff` for linting (faster than flake8, covers isort and more) and `m
 
 ## Related pages
 
-- [How to contribute](how-to-contribute.md) — architecture rules and PR requirements
+- [How to contribute](../contributing/how-to-contribute.md) — architecture rules and PR requirements
 - [Repository structure](../reference/repository-structure.md) — where test files live and how modules map to tests

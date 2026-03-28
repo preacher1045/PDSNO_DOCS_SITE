@@ -22,6 +22,11 @@ global_cntl_1 (primary)    global_cntl_2 (standby)
   lc_1  lc_2  lc_3  ...
 ```
 
+!!! note "Draft diagram"
+        This architecture visual is not final and will be refined as implementation details stabilize. It is included now to make the design intent clear.
+
+![PDSNO deployment view](../assets/images/deployment_view.png)
+
 | Tier | Scope | Primary responsibilities |
 |------|-------|------------------------|
 | **Global Controller** | Entire network | Root of trust, global policy, HIGH-sensitivity approvals, cross-region anomaly detection |
