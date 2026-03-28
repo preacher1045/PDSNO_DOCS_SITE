@@ -2035,14 +2035,6 @@
 <h1 id="gap-analysis">Gap analysis</h1>
 <p>This page maps documented shortcomings of major proprietary network orchestration platforms to PDSNO capabilities. Each gap section covers: what the vendor's product does not do well, what PDSNO addresses, and how mature PDSNO's response currently is.</p>
 <p>This is a living document. Update it as customer conversations produce concrete feedback. Real practitioner pain trumps any amount of market research — when a network engineer tells you their specific problem, write it down here with a date and an anonymised source label.</p>
-<div class="admonition note">
-<p class="admonition-title">Draft diagram</p>
-<p>This diagram is a working draft and will be refined as implementation evolves. It is included now to clarify the current design and flow.</p>
-</div>
-<p><img alt="Adapter architecture component diagram" src="../../assets/images/adaptor_architecture_component_architecture.png" /></p>
-<p><img alt="Intent translation data flow diagram" src="../../assets/images/intent_translation_data_flow_diagram.png" /></p>
-<p><img alt="Multi-vendor translation comparison" src="../../assets/images/multi-vendor_translation_comparison.png" /></p>
-<p><img alt="Adapter connection lifecycle state machine" src="../../assets/images/State%20machine_adapter_connection_lifecycle.png" /></p>
 <hr />
 <h2 id="gap-1-vendor-lock-in-at-the-orchestration-layer">Gap 1 — Vendor lock-in at the orchestration layer</h2>
 <h3 id="the-problem">The problem</h3>
@@ -2097,6 +2089,12 @@
 </tbody>
 </table>
 <p><strong>Maturity:</strong> Architecture designed. Implementation planned for Phase 7. Not yet implemented.</p>
+<div class="admonition note">
+<p class="admonition-title">Draft diagram</p>
+<p>This visual is a working draft and may be refined over time, but it captures the current adapter architecture direction.</p>
+</div>
+<p><img alt="Adapter architecture component diagram" src="../../assets/images/adaptor_architecture_component_architecture.png" /></p>
+<p><img alt="Multi-vendor translation comparison" src="../../assets/images/multi-vendor_translation_comparison.png" /></p>
 <hr />
 <h2 id="gap-2-multi-domain-policy-consistency">Gap 2 — Multi-domain policy consistency</h2>
 <h3 id="the-problem_1">The problem</h3>
@@ -2109,6 +2107,11 @@
 <p>The specific capability needed: a policy translation layer — the ability to take a PDSNO policy definition and translate it into the native format required by each vendor's API. A Cisco ACI adapter would translate PDSNO policy into APIC tenant/EPG/contract constructs. A VMware NSX adapter would translate into NSX security groups and distributed firewall rules.</p>
 <p>This requires defining a <strong>PDSNO Common Policy Model</strong> — a vendor-neutral representation — and building per-vendor translators. This is technically non-trivial because each vendor's policy model has different abstractions.</p>
 <p><strong>Maturity:</strong> Policy propagation architecture designed and documented. Common Policy Model not yet defined. Translation adapters not yet implemented. Phase 8–9 work.</p>
+<div class="admonition note">
+<p class="admonition-title">Draft diagram</p>
+<p>This translation flow diagram is an early version and will improve as the implementation matures.</p>
+</div>
+<p><img alt="Intent translation data flow diagram" src="../../assets/images/intent_translation_data_flow_diagram.png" /></p>
 <hr />
 <h2 id="gap-3-cross-domain-change-governance-and-auditability">Gap 3 — Cross-domain change governance and auditability</h2>
 <h3 id="the-problem_2">The problem</h3>
@@ -2132,6 +2135,11 @@
 </ul>
 <p>The specific value this creates for regulated customers: a compliance report showing, for any time period, every change proposed, who proposed it, who approved it, when it was applied, and what the before/after state was — across all vendor domains in a single document. This is currently impossible with vendor-native tools alone.</p>
 <p><strong>Maturity:</strong> Configuration approval logic designed and implemented. Compliance report output format not yet designed. Cross-domain execution (applying a single approved change across multiple vendor APIs simultaneously) requires the Phase 7 adapter layer.</p>
+<div class="admonition note">
+<p class="admonition-title">Draft diagram</p>
+<p>The lifecycle state machine below is not final but reflects the current adapter connection and runtime behavior.</p>
+</div>
+<p><img alt="Adapter connection lifecycle state machine" src="../../assets/images/State%20machine_adapter_connection_lifecycle.png" /></p>
 <hr />
 <h2 id="gap-4-cross-tier-incident-correlation">Gap 4 — Cross-tier incident correlation</h2>
 <h3 id="the-problem_3">The problem</h3>
@@ -2283,6 +2291,8 @@
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/image-lightbox.js"></script>
       
     
   </body>

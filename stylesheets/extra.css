@@ -86,3 +86,109 @@
   background-color: var(--md-primary-fg-color);
   color: white;
 }
+
+/* Ensure transparent diagrams remain readable on dark page backgrounds. */
+.md-typeset img[src*="assets/images/"] {
+  display: block;
+  max-width: min(100%, 980px);
+  max-height: 520px;
+  width: auto;
+  height: auto;
+  margin: 1rem auto;
+  padding: 0.75rem;
+  background: #f4f7fb;
+  border: 1px solid #d3dbe5;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  object-fit: contain;
+  cursor: zoom-in;
+}
+
+@media (max-width: 900px) {
+  .md-typeset img[src*="assets/images/"] {
+    max-height: 420px;
+  }
+}
+
+/* Keep logos/icons untouched by the diagram background style. */
+.md-typeset img[src*="logo"],
+.md-typeset img[src*="favicon"] {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  cursor: default;
+}
+
+/* Diagram lightbox */
+.diagram-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 10, 17, 0.92);
+}
+
+.diagram-lightbox.is-open {
+  display: flex;
+}
+
+.diagram-lightbox__stage {
+  position: relative;
+  width: min(94vw, 1400px);
+  height: min(88vh, 1000px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.diagram-lightbox__image {
+  max-width: 100%;
+  max-height: 100%;
+  transform-origin: center center;
+  transition: transform 120ms ease-out;
+  background: #f4f7fb;
+  border-radius: 0.45rem;
+  padding: 0.6rem;
+  cursor: zoom-in;
+  user-select: none;
+  touch-action: none;
+  will-change: transform;
+}
+
+.diagram-lightbox__toolbar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.diagram-lightbox__btn {
+  min-width: 2.3rem;
+  height: 2.3rem;
+  border: 0;
+  border-radius: 0.35rem;
+  color: #f4f7fb;
+  background: rgba(30, 43, 60, 0.86);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.diagram-lightbox__btn:hover {
+  background: rgba(50, 68, 92, 0.95);
+}
+
+.diagram-lightbox__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  color: #d6deea;
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+}
