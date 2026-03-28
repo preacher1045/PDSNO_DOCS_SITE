@@ -1926,6 +1926,12 @@
 <p><strong>The critical rule:</strong> Lower-tier controllers may <em>suggest</em> a sensitivity level, but higher tiers always re-classify independently. A Local Controller's suggested sensitivity is advisory only — never authoritative. A compromised LC claiming LOW for a destructive change is caught at the Regional Controller.</p>
 <hr />
 <h2 id="the-approval-flow">The approval flow</h2>
+<div class="admonition note">
+<p class="admonition-title">Draft diagrams</p>
+</div>
+<p>These diagrams are not final. They will continue to improve as PDSNO matures, but they already communicate the intended approval and execution model.</p>
+<p><img alt="Configuration approval sequence diagram" src="../../assets/images/config_approval_sequence.png" /></p>
+<p><img alt="Configuration execution flow sequence diagram" src="../../assets/images/configuration_execution_flow_sequence_diagram.png" /></p>
 <h3 id="stage-1-lc-proposal-creation">Stage 1 — LC: Proposal creation</h3>
 <p>The Local Controller validates that target devices exist in the NIB and are reachable, then creates the proposal:</p>
 <ul>

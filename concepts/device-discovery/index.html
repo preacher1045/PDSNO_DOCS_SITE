@@ -2146,6 +2146,11 @@
 </code></pre></div>
 <hr />
 <h2 id="the-complete-discovery-cycle">The complete discovery cycle</h2>
+<div class="admonition note">
+<p class="admonition-title">Draft diagram</p>
+<p>This diagram is an in-progress visual. It may be updated over time, but it reflects the current discovery lifecycle and message flow.</p>
+</div>
+<p><img alt="Device discovery sequence diagram" src="../../assets/images/device_discovery_sequence.png" /></p>
 <h3 id="stage-1-build-scan-targets">Stage 1 — Build scan targets</h3>
 <p>The LC reads its active policy from the NIB to determine which subnets and protocols to scan. The LC does not decide this itself — policy controls what it is permitted to scan.</p>
 <p>If no scan targets are found in policy, the cycle is skipped and a <code>DISCOVERY_SKIPPED</code> event is written to the Event Log.</p>

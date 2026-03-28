@@ -1767,6 +1767,11 @@
 <h1 id="data-models">Data models</h1>
 <p>This page is the schema reference for the Network Information Base. It covers the full table definitions, field types, constraints, and the entity hierarchy that all NIB objects inherit from.</p>
 <p>For the conceptual model — why the NIB exists, how it is accessed, and its consistency guarantees — see <a href="../../concepts/network-information-base/">Network Information Base</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Draft diagram</p>
+<p>This UML view is a working draft. It may be updated as entities and module boundaries evolve.</p>
+</div>
+<p><img alt="UML class diagram" src="../../assets/images/class_diagram_UML_style.png" /></p>
 <hr />
 <h2 id="entity-base-class">Entity base class</h2>
 <p>Every object stored in the NIB inherits from <code>NetworkEntity</code>. This provides consistent identity, versioning, and data-tier classification across all entity types.</p>
